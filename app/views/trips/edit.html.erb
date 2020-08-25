@@ -1,0 +1,64 @@
+<div class="background">
+<div class="row" style="padding-top:1%; padding-bottom:2%;">
+<%= image_tag 'photo/logo4.png', style:"width:25%; height:10%" %><br><br>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/welcome">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%if logged_in?%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/trips">My Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/destinations">Destinations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/attractions">Attractions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reviews">Reviews</a>
+        </li>
+    </ul>
+    <span class="nav-item">
+      <%= link_to "Logout", '/logout', method: :delete %>
+    </span>
+    <%else%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Sign Up</a>
+        </li>
+      </ul>
+    <%end%>
+</nav>
+
+
+<div class="row" style="padding-top:4%;">
+<div class="col"></div>
+<div class="col-md-12 text-center">
+
+<h1 class="text-white">Update Trip</h1><br>
+
+<%= form_for @trip do |f| %>
+
+<h5 class="text-white"><%= f.label :title %></h5>
+<%= f.text_field :title %><br><br>
+
+<h5 class="text-white"><%= f.label :description %></h5>
+<%= f.text_field :description %><br><br>
+
+<h5 class="text-white"><%= f.label :destination_id %></h5>
+<%= f.collection_select :destination_id, Destination.all, :id, :city %><br><br>
+
+<h5 class="text-white"><%= f.label :departure_date %></h5>
+<%= f.text_field :departure_date %>
+<br><br><br>
+
+<%= f.submit "Update Trip", class:'btn btn-md btn-secondary' %>
+<%end%>

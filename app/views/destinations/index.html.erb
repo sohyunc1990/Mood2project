@@ -1,0 +1,79 @@
+<div class="background">
+<div class="row" style="padding-top:1%; padding-bottom:2%;">
+<%= image_tag 'photo/logo4.png', style:"width:25%; height:10%" %><br><br>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/welcome">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%if logged_in?%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/trips">My Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/destinations">Destinations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/attractions">Attractions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reviews">Reviews</a>
+        </li>
+    </ul>
+    <span class="nav-item">
+      <%= link_to "Logout", '/logout', method: :delete %>
+    </span>
+    <%else%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Sign Up</a>
+        </li>
+      </ul>
+    <%end%>
+</nav>
+
+
+
+<div class="row" style="padding-top:4%;">
+<div class="col"></div>
+<div class="col-md-8 text-center" style="margin-right:200px;">
+
+<h1 class="text-white font-italic"><strong>Destinations</strong></h1>
+<br>
+<h3 class="text-white">Most Popular Destination</h3><br>
+<div class="card mb-3">
+<img src="<%= Trip.most_pop_dest_instance.image%>" class="card-img-top" style:"width:50%; height:30%", alt="most_popular_dest_image">
+<div class="card-body">
+<h5 class="card-title"><%= link_to Trip.most_pop_dest_city, destination_path(Trip.most_pop_dest_instance), {:style=>'color:black; font-size:25px;', :class => "css_class"} %></h5>
+</div>
+</div>
+
+<br><br>
+
+    <div class="col-5 col-center">
+<table class="table table-hover" style="margin-left:200px;">
+<thead>
+
+  <tr>
+  <tr scope="col col-center"><h3 class="text-white" style="margin-left:300px;">Cities</h3>
+  </tr>
+ </thead>
+<% @destinations.sort_alphabetically.each do |dest|%>
+  <tbody>
+  <tr>
+  <td scope="row"><%= link_to dest.city, destination_path(dest),{:style=>'color:lightgray; font-size:18px;', :class => "css_class"} %></td>
+  </tr>
+<%end%>
+</tbody>
+</table>
+</div><!-- .col-md-7 -->
+<div class="col"></div>
+</div><!-- .row -->
+
+

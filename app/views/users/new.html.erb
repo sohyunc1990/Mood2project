@@ -1,0 +1,77 @@
+<div class="background">
+<div class="row" style="padding-top:1%; padding-bottom:2%;">
+<%= image_tag 'photo/logo4.png', style:"width:25%; height:10%" %><br><br>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/welcome">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%if logged_in?%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/trips">My Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/destinations">Destinations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/attractions">Attractions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reviews">Reviews</a>
+        </li>
+    </ul>
+    <span class="nav-item">
+      <%= link_to "Logout", '/logout', method: :delete%>
+    </span>
+    <%else%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Sign Up</a>
+        </li>
+      </ul>
+    <%end%>
+</nav>
+
+<div class="row" style="padding-top:5%;">
+<div class="col"></div>
+<div class="col-md-7 text-center">
+
+<h1 class="text-white">Sign Up</h1><br>
+
+<%= form_for @user do |f|%>
+  <h5 class="text-white"><%= f.label :username%></h5>
+  <%= f.text_field :username%><br><br>
+
+  <h5 class="text-white"><%= f.label :first_name%></h5>
+  <%= f.text_field :first_name%><br><br>
+
+  <h5 class="text-white"><%= f.label :last_name%></h5>
+  <%= f.text_field :last_name%><br><br>
+
+  <h5 class="text-white"><%= f.label :location%></h5>
+  <%= f.text_field :location%><br><br>
+
+  <h5 class="text-white"><%= f.label :password%></h5>
+  <%= f.password_field :password%><br><br>
+  <h5 class="text-white"><%= f.label :password_confirmation%></h5>
+  <%= f.password_field :password_confirmation%><br><br><br>
+  <%= f.submit :Submit, class:'btn btn-md btn-secondary'%><br><br>
+<%end%>
+
+<ul>
+<%if @user.errors.any?%>
+  <%@user.errors.full_messages.each do |msg|%>
+    <li><%= msg %></li>
+  <%end%>
+<%end%>
+</ul>
+
+</div><!-- .col-md-7 -->
+<div class="col"></div>
+</div><!-- .row -->

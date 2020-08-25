@@ -1,0 +1,80 @@
+<div class="background">
+<div class="row" style="padding-top:1%; padding-bottom:2%;">
+<%= image_tag 'photo/logo4.png', style:"width:25%; height:10%" %><br><br>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/welcome">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%if logged_in?%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/trips">My Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/destinations">Destinations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/attractions">Attractions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reviews">Reviews</a>
+        </li>
+    </ul>
+    <span class="nav-item">
+      <%= link_to "Logout", '/logout', method: :delete %>
+    </span>
+    <%else%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Sign Up</a>
+        </li>
+      </ul>
+    <%end%>
+</nav>
+
+
+<div class="row" style="padding-top:5%;">
+<div class="col"></div>
+<div class="col-md-7 text-center">
+
+<h1 class="text-white font-italic"><strong><%= @attraction.name %></strong></h1>
+<p class="text-white font-italic"><%= @attraction.description %></p><br>
+
+<img src="<%= @attraction.image %>" alt="attraction picture" width="600" height="300">
+<br><br><br>
+
+<h3 class="text-white">Reviews</h3>
+
+<h4 class="text-white"><%= @attraction.average_rating %></h4>
+<br><br>
+
+<table class="table table-hover" style=";">
+<thead>
+<tr>
+<tr scope="col"><h5 class="text-white" style=";">Title of the Review & Rating</h5>
+</tr>
+</thead>
+<% @attraction.reviews.each do |review|%>
+  <tbody>
+  <tr>
+  <td scope="row" class="text-white"><%= link_to review.title, review_path(review), {:style=>'color:lightgray; font-size:18px;', :class => "css_class"}%> - Rating: <%= review.rating %>/5</td>
+  </tr>
+<%end%>
+</tbody>
+</table>
+<br>
+<br>
+<div class="btn-group" role="group" aria-label="Basic example">
+<%= button_to "Create Review", '/reviews/new', class:"btn btn-md btn-secondary", method: :get%></button>
+<%= button_to "City Page", destination_path(@attraction.destination_id), class:"btn btn-md btn-secondary", method: :get %></button>
+</div><br><br><br><br>
+
+</div><!-- .col-md-7 -->
+<div class="col"></div>
+</div><!-- .row -->

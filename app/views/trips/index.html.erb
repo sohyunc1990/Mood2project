@@ -1,0 +1,71 @@
+<div class="background">
+<div class="row" style="padding-top:1%; padding-bottom:2%;">
+<%= image_tag 'photo/logo4.png', style:"width:25%; height:10%" %><br><br>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/welcome">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%if logged_in?%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/trips">My Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/destinations">Destinations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/attractions">Attractions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reviews">Reviews</a>
+        </li>
+    </ul>
+    <span class="nav-item">
+      <%= link_to "Logout", '/logout', method: :delete %>
+    </span>
+    <%else%>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Sign Up</a>
+        </li>
+      </ul>
+    <%end%>
+</nav>
+
+
+<div class="row" style="padding-top:4%;">
+<div class="col"></div>
+<div class="text-center">
+
+<h1 class="text-white font-italic"><strong>My Trips</strong></h1><br><br>
+<div class='grid-center'>
+<table class="table table-hover" style="width:100%">
+<thead>
+  <tr>
+    <tr scope="col"><h5 class="text-white">Trip Names</h5>
+  </tr>
+</thead>
+<% @trips.each do |trip|%>
+<tbody>
+  <tr>
+    <td scope="row"><%=link_to trip.title, trip_path(trip), {:style=>'color:lightgray; font-size:18px;', :class => "css_class"} %></td>
+  </tr>
+<%end%>
+</tbody>
+</table>
+<br>
+</div>
+<br>
+<%= button_to "New Trip", new_trip_path, class:'btn btn-md btn-secondary', method: :get %>
+<br>
+
+
+</div><!-- .col-md-7 -->
+<div class="col"></div>
+</div><!-- .row -->
